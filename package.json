@@ -1,0 +1,25 @@
+{
+  "name": "telefon",
+  "version": "1.0.0",
+  "description": "game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cd client && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ashot1arzumanyan"
+  },
+  "author": "Ashot .A",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^2.2.0",
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.4"
+  }
+}
