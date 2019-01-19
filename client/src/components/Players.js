@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import UserName from './UserName'
+import playerSelection from '../actions/playerSelection'
 
 import '../styles/Players.scss'
 
@@ -10,19 +11,37 @@ const Names = (props) => {
   return (
     <ul>
       {props.playersList.map(player => (
-        <li key={player}>{player}</li>
+        <li 
+          key={player}
+          onClick={props.onClick}
+          >{player}
+        </li>
       ))}
     </ul>
   )
 }
 
 class Players extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+    this.handleClickPlayerName = this.handleClickPlayerName.bind(this)
+  }
+
+  handleClickPlayerName(e) {
+    const name = e.target.innerText;
+    this.props.playerSelection(name)
+  }
+
   render() {
-    console.log(this.props.playersList);
     return  (
       <div className='Players'>
         <UserName />
-        <Names playersList={this.props.playersList} />
+        <Names 
+          playersList={this.props.playersList} 
+          onClick={this.handleClickPlayerName}
+        />
       </div>
     )
   }
@@ -34,4 +53,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Players)
+export default connect(mapStateToProps, { playerSelection })(Players)

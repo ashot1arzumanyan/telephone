@@ -1,51 +1,25 @@
-const { ADD_PLAYER, DELETE_PLAYER, PLAYERS_LIST } = require('../../client/src/actions/types');
+const { ADD_PLAYER, DELETE_PLAYER, PLAYERS_LIST, PLAYER_SELECTION } = require('../../client/src/actions/types');
+const Adapter = require('./Adapter');
 
 function Referee(OPEN) {
+  Adapter.call(this)
   this.OPEN = OPEN;
-  this.clients = [];
-  this.names = [];
-  this.ids = [];
-  this.rooms = [];
-  this.players = {}
 }
 
+Referee.prototype = Object.create(Adapter.prototype)
+
 Referee.prototype.add = async function(ws, req) {
-  const name = await this.randomName();
-  this.sendMSG(ws, {type: PLAYERS_LIST, p: this.names, y: name});
+  const randomName = await this.randomName();
   const id = await this.getId(req);
-  ws.name = name;
-  ws.id = id;
-  this.ids.push(id);
-  this.names.push(name);
-  this.clients.push(ws);
-  this.broadcastExludeGivenWS(JSON.stringify({ type: ADD_PLAYER, p: name }), ws)
+  this.sendMSG(ws, {type: PLAYERS_LIST, p: this.names, y: randomName});
+  this.addValues(ws, randomName, id);
+  this.broadcastExludeGivenWS(JSON.stringify({ type: ADD_PLAYER, p: randomName }), ws)
 }
 
 Referee.prototype.delete = async function(ws) {
   const index = await this.clients.indexOf(ws);
-  console.log('found ' + index + ' name ' + ws.name);
-  this.names.splice(index, 1);
-  this.ids.splice(index, 1);
-  await this.clients.splice(index, 1);
+  await this.deleteValues(index);
   this.broadcast(JSON.stringify({ type: DELETE_PLAYER, p: ws.name }))
-}
-
-Referee.prototype.randomName = function() {
-  const getRandomName = () => {
-    const unnamed = 'Unnamed';
-    const randomFourDigit = Math.ceil(Math.random() * 1000);
-    const name = unnamed + randomFourDigit;
-    if (this.names.indexOf(name) > -1) {
-      getRandomName()
-    } else {
-      return name
-    }
-  }
-  return getRandomName();
-}
-
-Referee.prototype.getId = function(req) {
-  return req.connection.remoteAddress + '_' + req.connection.remotePort;
 }
 
 Referee.prototype.broadcast = function(msg) {
@@ -66,7 +40,7 @@ Referee.prototype.broadcastExludeGivenWS = function(msg, ws) {
 
 Referee.prototype.sendMSG = async function(ws, msg) {
   try {
-    await ws.send(JSON.stringify(msg))
+    return await ws.send(JSON.stringify(msg))
   } catch(e) {
     console.log(e);
   }
@@ -74,10 +48,31 @@ Referee.prototype.sendMSG = async function(ws, msg) {
 
 Referee.prototype.sendStringifiedMSG = async function(ws, msg) {
   try {
-    await ws.send(msg)
+    return await ws.send(msg)
   } catch(e) {
     console.log(e);
   }
+}
+
+Referee.prototype.parseMSG = function(msg) {
+  return JSON.parse(msg);
+}
+
+
+Referee.prototype.receiveMSG = function(msg) {
+  const m = this.parseMSG(msg);
+  switch (m.type) {
+    case PLAYER_SELECTION:
+      this.playerSelection(m.p)
+      break
+    default:
+      break
+  }
+}
+
+Referee.prototype.playerSelection = async function(name) {
+  const index = await this.names.indexOf(name);
+  console.log(index);
 }
 
 module.exports = Referee

@@ -35,10 +35,11 @@ wss.on('connection', (ws, req) => {
 })
 
 function handleMessage(msg) {
-  console.log(msg)
+  console.log(msg);
+  referee.receiveMSG(msg, this)
 }
 
 function handlePlayerLeave(why) {
   referee.delete(this);
-  console.log('wth %s player leave, because of code %s', this.id, why)
+  console.log('with %s player leave, because of code %s', this.id, why)
 }

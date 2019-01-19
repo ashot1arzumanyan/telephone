@@ -3,4 +3,19 @@
   width: 200px;
   display: grid;
   grid-template-rows: 100px 1fr;
+
+  & ul {
+    list-style-type: none;
+    padding: 8px 0;
+    background: #bdb5b5;
+
+    & li {
+      padding: 8px 20px;
+      cursor: pointer;
+
+      &:hover {
+        background: #bdb
+      }
+    }
+  }
 }

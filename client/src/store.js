@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import createSocketMiddleware from 'redux-ws'
+import thunk from 'redux-thunk'
 // import io from 'socket.io-client'
 
 import reducers from './reducers'
@@ -10,9 +10,7 @@ import initSocket from './socket'
 
 const ws = new WebSocket('ws://localhost:8000')
 
-const socketMiddleware = createSocketMiddleware(ws)
-
-const middleware = applyMiddleware(socketMiddleware, createLogger())
+const middleware = applyMiddleware(thunk.withExtraArgument(ws), createLogger())
 
 const store = createStore(
   reducers,
