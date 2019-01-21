@@ -2,7 +2,7 @@ const app = require('http').createServer(serverHandler);
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server: app, clientTracking: false });
 
-const Referee = require('./server/helpers/Referee');
+const Referee = require('./server/Referee');
 
 app.listen(8000, () => { console.log('listening on port 8000') })
 
@@ -35,11 +35,11 @@ wss.on('connection', (ws, req) => {
 })
 
 function handleMessage(msg) {
-  console.log(msg);
   referee.receiveMSG(msg, this)
+  console.log(msg);
 }
 
 function handlePlayerLeave(why) {
   referee.delete(this);
-  console.log('with %s player leave, because of code %s', this.id, why)
+  console.log('with name %s player leave, because of code %s', this.name, why)
 }
