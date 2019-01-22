@@ -41,5 +41,5 @@ function handleMessage(msg) {
 
 function handlePlayerLeave(why) {
   referee.delete(this);
-  console.log('with name %s player leave, because of code %s', this.name, why)
+  console.log('player leave, because of code %s', why)
 }

@@ -21,11 +21,13 @@ Adapter.prototype.randomName = function() {
 
 Adapter.prototype.addPlayer = function(ws) {
   this.players.push(ws);
+  console.log('added player name: %s', ws.name);
 }
 
-Adapter.prototype.deletePlayer = async function(ws) {
-  const index = await this.players.indexOf(ws);
+Adapter.prototype.deletePlayer = function(ws) {
+  const index = this.players.indexOf(ws);
   this.players.splice(index, 1);
+  console.log('with name %s player deleted', ws.name)
   return;
 }
 
@@ -43,11 +45,10 @@ Adapter.prototype.getPlayerByName = function(name) {
 
 Adapter.prototype.addRoom = async function(player1, player2Name) {
   const player2 = this.getPlayerByName(player2Name);
-  this.deletePlayer(player1);
-  this.deletePlayer(player2);
   const game = new Game(player1, player2);
   this.rooms.push(game);
-  console.log(this.players);
+  this.deletePlayer(player1);
+  this.deletePlayer(player2);
   return game
 }
 

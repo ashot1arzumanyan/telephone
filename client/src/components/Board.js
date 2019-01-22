@@ -1,17 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Rock from './Rock'
+import OwnRocks from './OwnRocks'
+import RivalsRocks from './RivalsRocks'
 
 import '../styles/Board.scss'
 
 class Board extends React.Component {
   render() {
     return (
-      <div className='Board'>
-        {this.props.rocks.map((rock, i) => 
-          <Rock key={i} nums={rock}/>
-        )}
+      <div className='Board'> 
+        <RivalsRocks rocksAmount={this.props.rocks.rivalsRocksAmount} />
+        <OwnRocks rocks={this.props.rocks} />
       </div>
     )
   }

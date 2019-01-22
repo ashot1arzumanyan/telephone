@@ -10,7 +10,7 @@ class Rock extends React.PureComponent {
     const { nums } = this.props 
 
     return (
-      <div className='Rock'>
+      <div className={`Rock ${this.props.className}`}>
         <div className='circles_container'>
           <Circles num={nums[0]}/>
         </div>
