@@ -4,4 +4,6 @@
   background: green;
   align-self: center;
   justify-self: center;
+  display: grid;
+  grid-auto-flow: column;
 }
