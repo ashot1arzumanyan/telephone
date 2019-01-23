@@ -4,7 +4,7 @@ class RivalsRocks extends React.Component {
 
   render() {
 
-    const div = <div className='Rock'></div>
+    const div = <div className='Rock-container'><div className='Rock'></div></div>
 
     const drawAmountTime = (amountTime) => {
       const rows = [];

@@ -7,7 +7,6 @@ function Game(player1, player2) {
   this.store = x.store;
   this.player1Rocks = x.player1Rocks;
   this.player2Rocks = x.player2Rocks;
-  x = null
 }
 
 Game.prototype.shouldStart = function() {

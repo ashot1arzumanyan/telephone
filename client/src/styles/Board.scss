@@ -5,12 +5,11 @@
   align-self: center;
   justify-self: center;
   display: grid;
-  grid-template: 1fr / 1fr;
+  grid-template: 20% 1fr 20% / 1fr;
 
   & > div {
     display: grid;
     grid-auto-flow: column;
-    justify-content: space-around;
     grid-gap: 5px;
     margin: 10px 0;
   }

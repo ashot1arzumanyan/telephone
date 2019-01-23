@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import OwnRocks from './OwnRocks'
 import RivalsRocks from './RivalsRocks'
+import Table from './Table'
 
 import '../styles/Board.scss'
 
@@ -11,6 +12,7 @@ class Board extends React.Component {
     return (
       <div className='Board'> 
         <RivalsRocks rocksAmount={this.props.rocks.rivalsRocksAmount} />
+        <Table />
         <OwnRocks rocks={this.props.rocks} />
       </div>
     )
