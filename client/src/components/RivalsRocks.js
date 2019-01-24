@@ -4,7 +4,8 @@ class RivalsRocks extends React.Component {
 
   render() {
 
-    const div = <div className='Rock-container'><div className='Rock'></div></div>
+    const { rocksAmount, width, height } = this.props
+    const div = <div className='Rock' style={{ width: `${width}px`, height: `${height}px` }}></div>
 
     const drawAmountTime = (amountTime) => {
       const rows = [];
@@ -14,10 +15,11 @@ class RivalsRocks extends React.Component {
       }
       return rows
     }
-
     return (
-      <div className='RivalsRocks'>
-        {drawAmountTime(this.props.rocksAmount)}
+      <div 
+        className='RivalsRocks rocks_container' 
+        >
+        {drawAmountTime(rocksAmount)}
       </div>
     )
   }

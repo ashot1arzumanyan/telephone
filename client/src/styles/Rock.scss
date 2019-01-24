@@ -1,36 +1,30 @@
-.Rock-container {
-  position: relative;
+.Rock {
+  background: wheat;
+  display: grid;
+  grid-template: 1fr 10px 1fr / 1fr;
+  padding: 5px;
+  width: var(--rock-width);
+  height: var(--rock-height);
+  margin: 0 5px;
 
-  & .Rock {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: wheat;
-    width: 50px;
-    height: 100px;
+  & .circles_container {
     display: grid;
-    grid-template: 1fr 10px 1fr / 1fr;
-    padding: 5px;
-  
-    & .circles_container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr; 
+
+    & > div {
       display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr; 
-  
-      & > div {
-        display: grid;
-        grid-auto-flow: column;
-        justify-content: space-between;
-        align-items: center;
-      }
+      grid-auto-flow: column;
+      justify-content: space-between;
+      align-items: center;
     }
-  
   }
+
 }
 
 .circle {
-  width: 10px;
-  height: 10px;
+  width: var(--circle-width-height);
+  height: var(--circle-width-height);;
   border-radius: 50%;
   background: black;
 }

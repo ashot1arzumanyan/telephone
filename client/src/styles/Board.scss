@@ -1,16 +1,11 @@
 .Board {
-  width: 100%;
-  height: 100%;
-  background: green;
-  align-self: center;
-  justify-self: center;
-  display: grid;
-  grid-template: 20% 1fr 20% / 1fr;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background: var(--board-b-color);
 
-  & > div {
-    display: grid;
-    grid-auto-flow: column;
-    grid-gap: 5px;
-    margin: 10px 0;
+  & .rocks_container{
+    display: flex;
+    justify-content: center;
   }
 }

@@ -4,15 +4,15 @@ class Circles extends React.PureComponent {
 
   render() {
 
-    const { num } = this.props
+    const { num, width } = this.props
 
     const circle1_7 = num === 2 || num === 3 || num === 4 || num === 5 || num === 6; 
     const circle2_6 = num === 4 || num === 5 || num === 6;
     const circle3_5 = num === 6;
     const circle4 = num === 1 || num === 3 || num === 5;
 
-    const showOrHide = (bool) => {
-      return bool ? {} : { visibility: 'hidden' } 
+    const showOrHide = (bool) => { 
+      return bool ? ({ width: `${width}px`, height: `${width}px`}) : ({ visibility: 'hidden' }) 
     }
 
     return (
