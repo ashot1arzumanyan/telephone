@@ -1,5 +1,7 @@
 import { ROCKS, SHOULD_START } from '../actions/types'
 
+import Rock from '../canvasFuncs/Rock'
+
 const initialState = {
   nums: [],
   queue: false,
@@ -12,6 +14,7 @@ const rocks = (state = initialState, action) => {
 
   switch(action.type) {
     case ROCKS:
+      new Rock(10, 10, 2, 3).draw()
       return {
         ...state,
         nums: [ ...state.nums, ...action.p ]

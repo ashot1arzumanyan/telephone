@@ -1,20 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import OwnRocks from './OwnRocks'
-import RivalsRocks from './RivalsRocks'
-import Table from './Table'
-
-import '../styles/Board.scss'
+import '../styles/board.scss'
 
 class Board extends React.Component {
+
+
   render() {
     return (
-      <div className='Board'> 
-        <RivalsRocks rocksAmount={this.props.rocks.rivalsRocksAmount} />
-        <Table />
-        <OwnRocks rocks={this.props.rocks} />
-      </div>
+      <canvas 
+        id='board'
+        height={document.documentElement.offsetHeight} 
+        width={document.documentElement.offsetWidth - 200}
+        >
+      </canvas>
     )
   }
 }
