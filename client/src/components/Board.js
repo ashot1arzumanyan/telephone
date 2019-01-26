@@ -32,15 +32,14 @@ class Board extends React.Component {
   }
 
   handleOnClick(e) {
-    if (this.props.opponentRocks.queue) {
-      if (!this.props.rocks.queue) {
-        return
-      }
-      if (this.props.rocks.selected.length) {
-        if (!e.currentTarget.classList.contains('selected')) {
-          return
-        }
-      }
+    if (!this.props.rocks.queue) {
+      return
+    }
+    if (!this.props.rocks.selected.length) {
+      return
+    }
+    if (!e.currentTarget.classList.contains('selected')) {
+      return
     }
 
     this.setInTable(e.currentTarget);

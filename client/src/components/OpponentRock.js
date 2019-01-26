@@ -1,6 +1,8 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
+import { connect } from 'react-redux'
 
+import { setOpponentRocksQueueToFalse } from '../actions/setQueueToFalse'
 import Circles from './Circles'
 
 class OpponentRock extends React.Component {
@@ -8,9 +10,11 @@ class OpponentRock extends React.Component {
   render() {
 
     const { nums, width, height, circleWidthHeight } = this.props 
-
+    
+    console.log(this.props);
     if (this.props.queue && this.props.nums[0] !== 7) {
       setTimeout(() => {
+        this.props.setOpponentRocksQueueToFalse()
         this.props.setInTable(findDOMNode(this))
       }, 0);
     }
@@ -45,4 +49,4 @@ class OpponentRock extends React.Component {
   }
 }
 
-export default OpponentRock
+export default connect(null, { setOpponentRocksQueueToFalse })(OpponentRock)

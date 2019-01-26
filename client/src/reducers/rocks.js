@@ -1,4 +1,4 @@
-import { ROCKS, SHOULD_START } from '../actions/types'
+import { ROCKS, SHOULD_START, SET_ROCKS_QUEUE_TO_FALSE } from '../actions/types'
 
 const initialState = {
   nums: [],
@@ -21,6 +21,12 @@ const rocks = (state = initialState, action) => {
         ...state,
         queue: true,
         selected: [array]
+      }
+
+    case SET_ROCKS_QUEUE_TO_FALSE:
+      return {
+        ...state,
+        queue: false
       }
       
     default:
