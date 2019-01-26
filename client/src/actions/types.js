@@ -9,3 +9,7 @@ module.exports.PLAYER_SELECTION = 'PLAYER_SELECTION';
 module.exports.ROCKS = 'ROCKS';
 
 module.exports.SHOULD_START = 'SHOULD_START';
+
+module.exports.PLAYED = 'PLAYED';
+
+module.exports.OPPONENT_PLAYED = 'OPPONENT_PLAYED';

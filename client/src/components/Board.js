@@ -5,12 +5,16 @@ import OwnRocks from './OwnRocks'
 import RivalsRocks from './RivalsRocks'
 import Table from './Table'
 
+import { played } from '../actions/gameActions'
+
 import '../styles/Board.scss'
 
 class Board extends React.Component {
 
   constructor(props) {
     super(props)
+
+    this.firstStep = true;
 
     this.state = {
       rHeight: 100,
@@ -28,31 +32,38 @@ class Board extends React.Component {
   }
 
   handleOnClick(e) {
-    console.log(e);
-    if (!this.props.rocks.queue) {
-      return
-    }
-    if (this.props.rocks.selected.length) {
-      if (!e.currentTarget.classList.contains('selected')) {
+    if (this.props.opponentRocks.queue) {
+      if (!this.props.rocks.queue) {
         return
       }
+      if (this.props.rocks.selected.length) {
+        if (!e.currentTarget.classList.contains('selected')) {
+          return
+        }
+      }
     }
-    const target = e.currentTarget;
-    const rect = target.getBoundingClientRect();
-    const targetClone = target.cloneNode(true);
-    // targetClone.style.position = 'absolute'
-    targetClone.style.bottom = 0;
-    targetClone.style.left = `${rect.left}px`;
-    target.parentElement.removeChild(target);
-    this.setInTable(targetClone);
+
+    this.setInTable(e.currentTarget);
   }
 
-  setInTable(el) {
+  setInTable(target) {
+    const targetClone = target.cloneNode(true);
+    targetClone.classList.remove('selected');
+    target.parentElement.removeChild(target);
+    const num0 = Number(targetClone.dataset.num0);
+    const num1 = Number(targetClone.dataset.num1);
+    if (this.props.rocks.queue) {
+      this.props.played([num0, num1]);
+    }
     const table = document.querySelector('.Table');
-    el.firstChild.classList.remove('selected');
-    el.style.bottom = `${table.offsetHeight / 2 - 50}px`
-    el.style.left = `${table.offsetWidth / 2 - 25}px`
-    table.appendChild(el);
+    targetClone.firstChild.classList.remove('selected');
+    if (this.firstStep) {
+      if (num0 !== num1) {
+        targetClone.style.transform = 'rotatez(90deg)'
+      }
+      this.firstStep = false
+    }
+    table.appendChild(targetClone);
   }
 
   setRockSize() {
@@ -70,7 +81,8 @@ class Board extends React.Component {
     return (
       <div className='Board'> 
         <RivalsRocks 
-          rocksAmount={this.props.rocks.rivalsRocksAmount} 
+          opponentRocks={this.props.opponentRocks} 
+          setInTable={this.setInTable}
           width={this.state.rWidth}
           height={this.state.rHeight}
           circleWidthHeight={this.state.cWidthHeight}
@@ -90,8 +102,9 @@ class Board extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    rocks: state.rocks
+    rocks: state.rocks,
+    opponentRocks: state.opponentRocks
   }
 }
 
-export default connect(mapStateToProps)(Board)
+export default connect(mapStateToProps, { played })(Board)

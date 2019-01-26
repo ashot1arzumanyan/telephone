@@ -4,7 +4,9 @@ const {
   PLAYERS_LIST, 
   PLAYER_SELECTION, 
   ROCKS,
-  SHOULD_START } = require('../client/src/actions/types');
+  SHOULD_START,
+  PLAYED,
+  OPPONENT_PLAYED } = require('../client/src/actions/types');
 const Adapter = require('./Adapter');
 
 function Referee(OPEN) {
@@ -76,6 +78,15 @@ Referee.prototype.receiveMSG = function(msg, ws) {
             this.sendMSG(whoShouldStart, { type: SHOULD_START })
           }
         });
+      break;
+    case PLAYED:
+      const game = this.findGame(ws);
+      const player1 = 'player1';
+      if (game[player1] === ws) {
+        this.sendMSG(game.player2, { type: OPPONENT_PLAYED, p: m.p })
+      } else {
+        this.sendMSG(game.player1, { type: OPPONENT_PLAYED, p: m.p })
+      }
       break;
     default:
       break

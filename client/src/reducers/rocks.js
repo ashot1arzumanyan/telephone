@@ -3,9 +3,7 @@ import { ROCKS, SHOULD_START } from '../actions/types'
 const initialState = {
   nums: [],
   queue: false,
-  game_beggining: true,
   selected: [],
-  rivalsRocksAmount: 7
 }
 
 const rocks = (state = initialState, action) => {

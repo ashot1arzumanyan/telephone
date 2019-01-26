@@ -1,8 +1,8 @@
 import { PLAYER_SELECTION } from './types'
 
-const playerSelection = (name) => (dispatch, g, socketSend) => {
+const playerSelection = (name) => (dispatch, g, socket) => {
   console.log(name);
-  socketSend.send(JSON.stringify({type: PLAYER_SELECTION, p: name}))  
+  socket.send(JSON.stringify({type: PLAYER_SELECTION, p: name}))  
 }
 
 export default playerSelection

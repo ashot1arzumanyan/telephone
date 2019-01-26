@@ -1,25 +1,26 @@
 import React from 'react'
 
+import OpponentRock from './OpponentRock'
+
 class RivalsRocks extends React.Component {
 
   render() {
 
-    const { rocksAmount, width, height } = this.props
-    const div = <div className='Rock' style={{ width: `${width}px`, height: `${height}px` }}></div>
-
-    const drawAmountTime = (amountTime) => {
-      const rows = [];
-      let i = 0;
-      while (++i <= amountTime) {
-        rows.push(div)
-      }
-      return rows
-    }
+    const { opponentRocks } = this.props
+    
     return (
-      <div 
-        className='RivalsRocks rocks_container' 
-        >
-        {drawAmountTime(rocksAmount)}
+      <div className='RivalsRocks rocks_container'>
+        {opponentRocks.nums.map((num, i) => 
+          <OpponentRock 
+            key={i} 
+            queue={this.props.opponentRocks.queue}
+            setInTable={this.props.setInTable}
+            nums={num}
+            width={this.props.width}
+            height={this.props.height}
+            circleWidthHeight={this.props.circleWidthHeight}
+          />
+        )}
       </div>
     )
   }

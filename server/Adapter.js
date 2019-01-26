@@ -52,4 +52,8 @@ Adapter.prototype.addRoom = async function(player1, player2Name) {
   return game
 }
 
+Adapter.prototype.findGame = function(ws) {
+  return game = this.rooms.find(game => game.player1 === ws || game.player2 === ws);
+}
+
 module.exports = Adapter
