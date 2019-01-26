@@ -15,10 +15,15 @@ class OpponentRock extends React.Component {
       }, 0);
     }
 
+    const dataNum0 = nums[0] === 7 ? {} : { 'data-num0': nums[0] }
+    const dataNum1 = nums[1] === 7 ? {} : { 'data-num1': nums[1] }
+
     return (
       <div 
         className='Rock'
         style={{ width: `${width}px`, height: `${height}px` }}
+        {...dataNum0}
+        {...dataNum1}
       >
         <div className='circles_container'>
           <Circles 
