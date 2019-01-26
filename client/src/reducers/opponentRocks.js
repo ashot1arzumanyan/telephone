@@ -13,7 +13,7 @@ const opponentRocks = (state = initialState, action) => {
       return {
         ...state,
         queue: true,
-        nums: [...array, ...action.p]
+        nums: [...array, [...action.p]]
       }
   
     default:
