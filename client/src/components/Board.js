@@ -14,7 +14,10 @@ class Board extends React.Component {
   constructor(props) {
     super(props)
 
-    this.firstStep = true;
+    this.top = null;
+    this.right = null;
+    this.bottom = null;
+    this.left = null;
 
     this.state = {
       rHeight: 100,
@@ -41,28 +44,27 @@ class Board extends React.Component {
     if (!e.currentTarget.classList.contains('selected')) {
       return
     }
-
-    this.setInTable(e.currentTarget);
+    const num0 = Number(e.currentTarget.dataset.num0);
+    const num1 = Number(e.currentTarget.dataset.num1);
+    this.setInTable(e.currentTarget, num0, num1);
+    this.props.played([num0, num1]);
   }
 
-  setInTable(target) {
+  setInTable(target, num0, num1) {
     const targetClone = target.cloneNode(true);
     targetClone.classList.remove('selected');
-    target.parentElement.removeChild(target);
-    const num0 = Number(targetClone.dataset.num0);
-    const num1 = Number(targetClone.dataset.num1);
-    if (this.props.rocks.queue) {
-      this.props.played([num0, num1]);
-    }
     const table = document.querySelector('.Table');
-    targetClone.firstChild.classList.remove('selected');
-    if (this.firstStep) {
+    if (!this.top && !this.right && !this.bottom && !this.left) {
       if (num0 !== num1) {
-        targetClone.style.transform = 'rotatez(90deg)'
+        targetClone.style.transform = 'rotateZ(-90deg)';
+        this.left = num0;
+        this.right = num1
+      } else {
+        this.top = this.bottom = num0
       }
-      this.firstStep = false
     }
     table.appendChild(targetClone);
+
   }
 
   setRockSize() {

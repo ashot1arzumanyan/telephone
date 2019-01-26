@@ -44,4 +44,17 @@ Game.prototype.hasDouble = function(playerRocks, i) {
   return playerRocks.some(rock => rock[0] === i && rock[1] === rock[0])
 }
 
+Game.prototype.deleteRock = function(playerStr, rock) {
+  const playerRocks = playerStr + 'Rocks';
+  const filtered = this[playerRocks].filter(r => !((r[0] === rock[0] && r[1] === rock[1]) ||
+                                                 (r[1] === rock[0] && r[0] === rock[1])));
+  this[playerRocks] = filtered
+}
+
+Game.prototype.getMatched = function(playerStr, rock) {
+  const playerRocks = playerStr + 'Rocks';
+  return this[playerRocks].filter(r => r[0] === rock[0] || r[0] === rock[1] ||
+                                       r[1] === rock[0] || r[1] === rock[1] );
+}
+
 module.exports = Game

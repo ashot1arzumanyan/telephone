@@ -6,7 +6,8 @@ const {
   ROCKS,
   SHOULD_START,
   PLAYED,
-  OPPONENT_PLAYED } = require('../client/src/actions/types');
+  OPPONENT_PLAYED,
+  SELECTED } = require('../client/src/actions/types');
 const Adapter = require('./Adapter');
 
 function Referee(OPEN) {
@@ -81,12 +82,18 @@ Referee.prototype.receiveMSG = function(msg, ws) {
       break;
     case PLAYED:
       const game = this.findGame(ws);
-      const player1 = 'player1';
-      if (game[player1] === ws) {
-        this.sendMSG(game.player2, { type: OPPONENT_PLAYED, p: m.p })
-      } else {
-        this.sendMSG(game.player1, { type: OPPONENT_PLAYED, p: m.p })
+      let currentPlayer = 'player1';
+      let opponentPlayer = 'player1';
+      if (game[currentPlayer].name === ws.name) {
+        opponentPlayer = 'player2';
       }
+      // console.log('current ' + game[currentPlayer].name);
+      // console.log('opponent ' + game[opponentPlayer].name);
+      this.sendMSG(game[opponentPlayer], { type: OPPONENT_PLAYED, p: m.p });
+      game.deleteRock(currentPlayer, m.p);
+      const selected = game.getMatched(opponentPlayer, m.p);
+      this.sendMSG(game[opponentPlayer], { type: SELECTED, p: selected });
+      
       break;
     default:
       break

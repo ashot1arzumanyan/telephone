@@ -44,8 +44,9 @@ Adapter.prototype.getPlayerByName = function(name) {
 }
 
 Adapter.prototype.addRoom = async function(player1, player2Name) {
-  const player2 = this.getPlayerByName(player2Name);
+  const player2 = await this.getPlayerByName(player2Name);
   const game = new Game(player1, player2);
+  console.log(player1.name, player2.name);
   this.rooms.push(game);
   this.deletePlayer(player1);
   this.deletePlayer(player2);

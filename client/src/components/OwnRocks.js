@@ -16,9 +16,9 @@ class OwnRocks extends React.Component {
 
     return (
       <div className='OwnRocks rocks_container'>
-        {rocks.nums.map((rock, i) => 
+        {rocks.nums.map((rock) => 
           <Rock 
-            key={i} 
+            key={`${rock[0]}${rock[1]}`} 
             className={select(rock) ? 'selected': ''}
             onClick={this.props.onClick} 
             nums={rock}

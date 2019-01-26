@@ -13,7 +13,6 @@ class RivalsRocks extends React.Component {
         {opponentRocks.nums.map((num, i) => 
           <OpponentRock 
             key={i} 
-            queue={this.props.opponentRocks.queue}
             setInTable={this.props.setInTable}
             nums={num}
             width={this.props.width}

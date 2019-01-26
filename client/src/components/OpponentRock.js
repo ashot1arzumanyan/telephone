@@ -1,21 +1,25 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 
-import { setOpponentRocksQueueToFalse } from '../actions/setQueueToFalse'
+import deleteRock from '../actions/deleteOpponentRock'
 import Circles from './Circles'
 
 class OpponentRock extends React.Component {
 
+  componentDidMount() {
+    this.target = React.createRef()
+  }
+
   render() {
 
     const { nums, width, height, circleWidthHeight } = this.props 
-    
-    console.log(this.props);
-    if (this.props.queue && this.props.nums[0] !== 7) {
+
+    if (nums[0] !== 7) {
       setTimeout(() => {
-        this.props.setOpponentRocksQueueToFalse()
-        this.props.setInTable(findDOMNode(this))
+        const num0 = this.target.current.dataset.num0;
+        const num1 = this.target.current.dataset.num1;
+        this.props.setInTable(this.target.current, num0, num1)
+        this.props.dispatch(deleteRock([num0, num1]))
       }, 0);
     }
 
@@ -26,6 +30,7 @@ class OpponentRock extends React.Component {
       <div 
         className='Rock'
         style={{ width: `${width}px`, height: `${height}px` }}
+        ref={this.target}
         {...dataNum0}
         {...dataNum1}
       >
@@ -49,4 +54,4 @@ class OpponentRock extends React.Component {
   }
 }
 
-export default connect(null, { setOpponentRocksQueueToFalse })(OpponentRock)
+export default connect(null)(OpponentRock)

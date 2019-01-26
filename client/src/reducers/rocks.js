@@ -1,4 +1,4 @@
-import { ROCKS, SHOULD_START, SET_ROCKS_QUEUE_TO_FALSE } from '../actions/types'
+import { ROCKS, SHOULD_START, SET_ROCKS_QUEUE_TO_FALSE, DELETE_ROCK, SELECTED } from '../actions/types'
 
 const initialState = {
   nums: [],
@@ -27,6 +27,21 @@ const rocks = (state = initialState, action) => {
       return {
         ...state,
         queue: false
+      }
+
+    case DELETE_ROCK:
+      const filtered = state.nums.filter(n => !(n[0] === action.p[0] && n[1] === action.p[1]))
+      return {
+        ...state,
+        queue: false,
+        nums: filtered
+      }
+
+    case SELECTED:
+      return {
+        ...state,
+        queue: true,
+        selected: [...action.p]
       }
       
     default:
