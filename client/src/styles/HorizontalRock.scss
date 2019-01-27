@@ -1,0 +1,22 @@
+.HorizontalRock {
+  grid-template: 1fr / 1fr 10px 1fr;
+
+  & .circles_container {
+    grid-template: 1fr / 1fr 1fr 1fr;
+    justify-items: center;
+
+    & > div {
+      align-content: space-between;
+    }
+  }
+  
+  & .divider {
+    justify-content: center;
+  
+    & > div {
+      height: 100%;
+      width: 1px;
+    }
+  }
+
+}

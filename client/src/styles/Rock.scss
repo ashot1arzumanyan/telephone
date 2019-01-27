@@ -1,51 +1,65 @@
 .Rock {
   background: wheat;
   display: grid;
-  grid-template: 1fr 10px 1fr / 1fr;
   padding: 5px;
   width: var(--rock-width);
   height: var(--rock-height);
-  margin: 0 5px;
 
   & .circles_container {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr; 
 
     & > div {
       display: grid;
+    }
+  }
+
+  & .circle {
+    width: var(--circle-width-height);
+    height: var(--circle-width-height);;
+    border-radius: 50%;
+    background: black;
+  }
+  
+  & .divider {
+    display: grid;
+  
+    & > div {
+      background: black
+    }
+  }
+  
+  & .selected {
+    border: 2px solid;
+  
+    &:hover {
+      bottom: 20px;
+      cursor: pointer;
+    }
+  }
+}
+
+.verticalRock {
+  grid-template: 1fr 10px 1fr / 1fr;
+  margin: 0 5px;
+
+  & .circles_container {
+    grid-template: 1fr 1fr 1fr / 1fr; 
+
+    & > div {
       grid-auto-flow: column;
       justify-content: space-between;
       align-items: center;
     }
   }
-
-}
-
-.circle {
-  width: var(--circle-width-height);
-  height: var(--circle-width-height);;
-  border-radius: 50%;
-  background: black;
-}
-
-.divider {
-  display: grid;
-  grid-template: 1fr / 1fr;
-  justify-content: center;
-  align-items: center;
-
-  & > div {
-    height: 1px;
-    background: black
+  
+  & .divider {
+    grid-template: 1fr / 1fr;
+    justify-content: center;
+    align-items: center;
+  
+    & > div {
+      height: 1px;
+    }
   }
-}
-
-.selected {
-  border: 2px solid;
-
-  &:hover {
-    bottom: 20px;
-    cursor: pointer;
-  }
+  
 }
