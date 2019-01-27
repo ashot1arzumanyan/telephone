@@ -1,7 +1,6 @@
 .Board {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
   background: var(--board-b-color);
 
   & .rocks_container{

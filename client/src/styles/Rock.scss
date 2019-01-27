@@ -27,15 +27,7 @@
       background: black
     }
   }
-  
-  & .selected {
-    border: 2px solid;
-  
-    &:hover {
-      bottom: 20px;
-      cursor: pointer;
-    }
-  }
+
 }
 
 .verticalRock {
@@ -62,4 +54,13 @@
     }
   }
   
+}
+
+.selected {
+  border: 2px solid;
+
+  &:hover {
+    bottom: 20px;
+    cursor: pointer;
+  }
 }

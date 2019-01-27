@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { createPortal } from 'react-dom'
 
 import OwnRocks from './OwnRocks'
 import RivalsRocks from './RivalsRocks'
@@ -22,7 +23,6 @@ class Board extends React.Component {
     this.state = {
       rHeight: 100,
       rWidth: 50,
-      cWidthHeight: 8
     }
 
     this.handleOnClick = this.handleOnClick.bind(this)
@@ -52,29 +52,40 @@ class Board extends React.Component {
 
   setInTable(target, num0, num1) {
     const targetClone = target.cloneNode(true);
-    targetClone.classList.remove('selected');
     const table = document.querySelector('.Table');
+    table.appendChild(targetClone);
+    targetClone.classList.remove('selected');
+    targetClone.style.position = 'absolute';
+    targetClone.style.bottom = 0;
+    const rect = table.getBoundingClientRect();
     if (!this.top && !this.right && !this.bottom && !this.left) {
       if (num0 !== num1) {
         targetClone.style.transform = 'rotateZ(-90deg)';
+        targetClone.style.width = this.state.rHeight;
         this.left = num0;
         this.right = num1
       } else {
-        this.top = this.bottom = num0
+        this.top = this.bottom = num0        
       }
     }
-    table.appendChild(targetClone);
+    const rectOfTarget = targetClone.getBoundingClientRect();
+
+    targetClone.style.left = `${(rect.width / 2) }px`
+    targetClone.style.top = `${(rect.height / 2) }px`
+
+
+    const x = React.createElement('input', { value: 'jhgkuygy' });
+    console.dir(x);
+    createPortal(x, table)
 
   }
 
   setRockSize() {
     const height = Math.floor(document.documentElement.offsetHeight / 8);
     const width = (height - 10) / 2;
-    const circleWidthHeight = Math.floor(height / 10);
     this.setState({
       rHeight: height,
       rWidth: width,
-      cWidthHeight: circleWidthHeight
     })
   }
 
@@ -86,15 +97,16 @@ class Board extends React.Component {
           setInTable={this.setInTable}
           width={this.state.rWidth}
           height={this.state.rHeight}
-          circleWidthHeight={this.state.cWidthHeight}
         />
-        <Table />
+        <Table 
+          width={this.state.rWidth}
+          height={this.state.rHeight}
+        />
         <OwnRocks 
           rocks={this.props.rocks} 
           onClick={this.handleOnClick}
           width={this.state.rWidth}
           height={this.state.rHeight}
-          circleWidthHeight={this.state.cWidthHeight}
         />
       </div>
     )

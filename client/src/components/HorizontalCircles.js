@@ -1,6 +1,6 @@
 import React from 'react'
 
-class HorizontalCircles extends React.Component {
+class HorizontalCircles extends React.PureComponent {
   render() {
 
     const { num, width } = this.props

@@ -12,7 +12,7 @@ class OpponentRock extends React.Component {
 
   render() {
 
-    const { nums, width, height, circleWidthHeight } = this.props 
+    const { nums, width, height } = this.props 
 
     if (nums[0] !== 7) {
       setTimeout(() => {
@@ -28,7 +28,7 @@ class OpponentRock extends React.Component {
 
     return (
       <div 
-        className='Rock'
+        className='Rock verticalRock'
         style={{ width: `${width}px`, height: `${height}px` }}
         ref={this.target}
         {...dataNum0}
@@ -37,7 +37,7 @@ class OpponentRock extends React.Component {
         <div className='circles_container'>
           <Circles 
             num={nums[0]}
-            width={circleWidthHeight}
+            width={Math.floor(height / 10)}
           />
         </div>
         <div className='divider'>
@@ -46,7 +46,7 @@ class OpponentRock extends React.Component {
         <div className='circles_container'>
           <Circles 
             num={nums[1]}
-            width={circleWidthHeight}
+            width={Math.floor(height / 10)}
           />
         </div>
       </div>

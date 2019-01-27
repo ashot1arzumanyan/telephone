@@ -17,7 +17,6 @@ class RivalsRocks extends React.Component {
             nums={num}
             width={this.props.width}
             height={this.props.height}
-            circleWidthHeight={this.props.circleWidthHeight}
           />
         )}
       </div>

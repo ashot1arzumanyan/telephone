@@ -8,11 +8,11 @@ class Rock extends React.PureComponent {
 
   render() {
 
-    const { nums, width, height, circleWidthHeight } = this.props 
+    const { nums, width, height } = this.props 
     
     return (
       <div 
-        className={`Rock ${this.props.className}`}
+        className={`verticalRock Rock ${this.props.className}`}
         onClick={this.props.onClick}
         style={{ width: `${width}px`, height: `${height}px` }}
         data-num0={nums[0]}
@@ -21,7 +21,7 @@ class Rock extends React.PureComponent {
         <div className='circles_container'>
           <Circles 
             num={nums[0]}
-            width={circleWidthHeight}
+            width={Math.floor(height / 10)}
           />
         </div>
         <div className='divider'>
@@ -30,7 +30,7 @@ class Rock extends React.PureComponent {
         <div className='circles_container'>
           <Circles 
             num={nums[1]}
-            width={circleWidthHeight}
+            width={Math.floor(height / 10)}
           />
         </div>
       </div>

@@ -11,6 +11,7 @@ class OwnRocks extends React.Component {
     const { rocks } = this.props
 
     const select = (rock) => {
+      console.log(rocks.selected, rock);
       return rocks.selected.some(r => (r[0] === rock[0] && r[1] === rock[1]) || (r[0] === rock[1] && r[1] === rock[0]) )
     }
 
@@ -24,7 +25,6 @@ class OwnRocks extends React.Component {
             nums={rock}
             width={this.props.width}
             height={this.props.height}
-            circleWidthHeight={this.props.circleWidthHeight}
           />
         )}
       </div>

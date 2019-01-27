@@ -7,17 +7,17 @@ import '../styles/HorizontalRock.scss'
 class HorizontalRock extends React.Component {
   render() {
 
-    const { nums, width, height, circleWidthHeight } = this.props
+    const { nums, width, height } = this.props
 
     return (
       <div 
         className='HorizontalRock Rock'
-        style={{ width: `${width}px`, height: `${height}px` }}
+        style={{ width: `${height}px`, height: `${width}px` }}
         >
         <div className='circles_container'>
           <HorizontalCircles 
             num={nums[0]}
-            width={circleWidthHeight}
+            width={Math.floor(height / 10)}
           />
         </div>
         <div className='divider'>
@@ -26,7 +26,7 @@ class HorizontalRock extends React.Component {
         <div className='circles_container'>
           <HorizontalCircles 
             num={nums[1]}
-            width={circleWidthHeight}
+            width={Math.floor(height / 10)}
           />
         </div>
       </div>
