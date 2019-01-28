@@ -7,12 +7,15 @@ import '../styles/HorizontalRock.scss'
 class HorizontalRock extends React.Component {
   render() {
 
-    const { nums, width, height } = this.props
+    const { nums, width, height, left, top } = this.props
 
     return (
       <div 
-        className='HorizontalRock Rock'
-        style={{ width: `${height}px`, height: `${width}px` }}
+        className={`HorizontalRock Rock ${this.props.className ? this.props.className : '' }`}
+        style={{ width: `${height}px`, 
+                 height: `${width}px`, 
+                 top: `${top}px`,
+                 left: `${left}px` }}
         >
         <div className='circles_container'>
           <HorizontalCircles 

@@ -16,9 +16,9 @@ class OpponentRock extends React.Component {
 
     if (nums[0] !== 7) {
       setTimeout(() => {
-        const num0 = this.target.current.dataset.num0;
-        const num1 = this.target.current.dataset.num1;
-        this.props.setInTable(this.target.current, num0, num1)
+        const num0 = Number(this.target.current.dataset.num0);
+        const num1 = Number(this.target.current.dataset.num1);
+        this.props.setInTable(num0, num1)
         this.props.dispatch(deleteRock([num0, num1]))
       }, 0);
     }

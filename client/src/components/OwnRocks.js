@@ -11,8 +11,8 @@ class OwnRocks extends React.Component {
     const { rocks } = this.props
 
     const select = (rock) => {
-      console.log(rocks.selected, rock);
-      return rocks.selected.some(r => (r[0] === rock[0] && r[1] === rock[1]) || (r[0] === rock[1] && r[1] === rock[0]) )
+      return rocks.selected.some(r => (r[0] === rock[0] && r[1] === rock[1]) || 
+                                      (r[0] === rock[1] && r[1] === rock[0]))
     }
 
     return (
@@ -21,7 +21,7 @@ class OwnRocks extends React.Component {
           <Rock 
             key={`${rock[0]}${rock[1]}`} 
             className={select(rock) ? 'selected': ''}
-            onClick={this.props.onClick} 
+            onClick={select(rock) ? this.props.onClick : null} 
             nums={rock}
             width={this.props.width}
             height={this.props.height}

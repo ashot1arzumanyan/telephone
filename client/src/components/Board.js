@@ -19,10 +19,16 @@ class Board extends React.Component {
     this.right = null;
     this.bottom = null;
     this.left = null;
+    this.center = null;
 
     this.state = {
       rHeight: 100,
       rWidth: 50,
+      tops: [],
+      rights: [],
+      bottoms: [],
+      lefts: [],
+      first: []
     }
 
     this.handleOnClick = this.handleOnClick.bind(this)
@@ -38,46 +44,16 @@ class Board extends React.Component {
     if (!this.props.rocks.queue) {
       return
     }
-    if (!this.props.rocks.selected.length) {
-      return
-    }
-    if (!e.currentTarget.classList.contains('selected')) {
-      return
-    }
     const num0 = Number(e.currentTarget.dataset.num0);
     const num1 = Number(e.currentTarget.dataset.num1);
-    this.setInTable(e.currentTarget, num0, num1);
+    this.setInTable(num0, num1);
     this.props.played([num0, num1]);
   }
 
-  setInTable(target, num0, num1) {
-    const targetClone = target.cloneNode(true);
-    const table = document.querySelector('.Table');
-    table.appendChild(targetClone);
-    targetClone.classList.remove('selected');
-    targetClone.style.position = 'absolute';
-    targetClone.style.bottom = 0;
-    const rect = table.getBoundingClientRect();
+  setInTable(num0, num1) {
     if (!this.top && !this.right && !this.bottom && !this.left) {
-      if (num0 !== num1) {
-        targetClone.style.transform = 'rotateZ(-90deg)';
-        targetClone.style.width = this.state.rHeight;
-        this.left = num0;
-        this.right = num1
-      } else {
-        this.top = this.bottom = num0        
-      }
+      this.setState({ first: [num0, num1] })
     }
-    const rectOfTarget = targetClone.getBoundingClientRect();
-
-    targetClone.style.left = `${(rect.width / 2) }px`
-    targetClone.style.top = `${(rect.height / 2) }px`
-
-
-    const x = React.createElement('input', { value: 'jhgkuygy' });
-    console.dir(x);
-    createPortal(x, table)
-
   }
 
   setRockSize() {
@@ -101,6 +77,11 @@ class Board extends React.Component {
         <Table 
           width={this.state.rWidth}
           height={this.state.rHeight}
+          tops={this.state.tops}
+          rights={this.state.rights}
+          bottoms={this.state.bottoms}
+          lefts={this.state.lefts}
+          first={this.state.first}
         />
         <OwnRocks 
           rocks={this.props.rocks} 
