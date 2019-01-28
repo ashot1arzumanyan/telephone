@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createPortal } from 'react-dom'
 
 import OwnRocks from './OwnRocks'
 import RivalsRocks from './RivalsRocks'
@@ -51,9 +50,58 @@ class Board extends React.Component {
   }
 
   setInTable(num0, num1) {
-    if (!this.top && !this.right && !this.bottom && !this.left) {
-      this.setState({ first: [num0, num1] })
+    if (!this.state.first.length) {
+      if (num0 === num1) {
+        this.left = this.right = num0
+      } else {
+        this.left = num0;
+        this.right = num1
+      }
+      return this.setState({ first: [num0, num1] })
     }
+
+    if (this.top === num0) {
+      const tops = this.state.tops;
+      tops.push([num1, num0]);
+      this.setState({ tops: tops });
+      this.top = num1
+    } else if (this.top === num1) {
+      const tops = this.state.tops;
+      tops.push([num0, num1]);
+      this.setState({ tops: tops });
+      this.top = num0
+    } else if (this.right === num0) {
+      const rights = this.state.rights;
+      rights.push([num0, num1]);
+      this.setState({ rights: rights });
+      this.right = num1
+    } else if (this.right === num1) {
+      const rights = this.state.rights;
+      rights.push([num1, num0]);
+      this.setState({ rights: rights });
+      this.right = num0
+    } else if (this.bottom === num0) {
+      const bottoms = this.state.bottoms;
+      bottoms.push([num0, num1]);
+      this.setState({ bottoms: bottoms });
+      this.bottom = num1
+    } else if (this.bottom === num1) {
+      const bottoms = this.state.bottoms;
+      bottoms.push([num1, num0]);
+      this.setState({ bottoms: bottoms });
+      this.bottom = num0
+    } else if (this.left === num0) {
+      const lefts = this.state.lefts;
+      lefts.push([num1, num0]);
+      this.setState({ lefts: lefts });
+      this.left = num1
+    } else if (this.left === num1) {
+      const lefts = this.state.lefts;
+      lefts.push([num0, num1]);
+      this.setState({ lefts: lefts });
+      this.left = num0
+    }
+
   }
 
   setRockSize() {
