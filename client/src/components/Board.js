@@ -14,11 +14,33 @@ class Board extends React.Component {
   constructor(props) {
     super(props)
 
-    this.top = null;
-    this.right = null;
-    this.bottom = null;
-    this.left = null;
-    this.center = null;
+    this.top = {
+      num: Number,
+      el: HTMLElement,
+      isDuble: Boolean
+    };
+    this.right = {
+      num: Number,
+      el: HTMLElement,
+      isDuble: Boolean
+    };
+    this.bottom = {
+      num: Number,
+      el: HTMLElement,
+      isDuble: Boolean
+    };
+    this.left = {
+      num: Number,
+      el: HTMLElement,
+      isDuble: Boolean
+    };
+    this.center = {
+      num: Number,
+      el: HTMLElement,
+      isDuble: Boolean
+    };
+    this.duble = null;
+    this.dubles = [];
 
     this.state = {
       rHeight: 100,
@@ -39,6 +61,10 @@ class Board extends React.Component {
     this.setRockSize()
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(prevState);
+  // }
+
   handleOnClick(e) {
     if (!this.props.rocks.queue) {
       return
@@ -52,56 +78,38 @@ class Board extends React.Component {
   setInTable(num0, num1) {
     if (!this.state.first.length) {
       if (num0 === num1) {
-        this.left = this.right = num0
+        this.left = this.right = {num: num0, isDuble: true}
       } else {
-        this.left = num0;
-        this.right = num1
+        this.left = {num: num0, isDuble: false};
+        this.right = {num: num1, isDuble: false}
       }
       return this.setState({ first: [num0, num1] })
     }
 
-    if (this.top === num0) {
-      const tops = this.state.tops;
-      tops.push([num1, num0]);
-      this.setState({ tops: tops });
-      this.top = num1
-    } else if (this.top === num1) {
-      const tops = this.state.tops;
-      tops.push([num0, num1]);
-      this.setState({ tops: tops });
-      this.top = num0
-    } else if (this.right === num0) {
-      const rights = this.state.rights;
-      rights.push([num0, num1]);
-      this.setState({ rights: rights });
-      this.right = num1
-    } else if (this.right === num1) {
-      const rights = this.state.rights;
-      rights.push([num1, num0]);
-      this.setState({ rights: rights });
-      this.right = num0
-    } else if (this.bottom === num0) {
-      const bottoms = this.state.bottoms;
-      bottoms.push([num0, num1]);
-      this.setState({ bottoms: bottoms });
-      this.bottom = num1
-    } else if (this.bottom === num1) {
-      const bottoms = this.state.bottoms;
-      bottoms.push([num1, num0]);
-      this.setState({ bottoms: bottoms });
-      this.bottom = num0
-    } else if (this.left === num0) {
-      const lefts = this.state.lefts;
-      lefts.push([num1, num0]);
-      this.setState({ lefts: lefts });
-      this.left = num1
-    } else if (this.left === num1) {
-      const lefts = this.state.lefts;
-      lefts.push([num0, num1]);
-      this.setState({ lefts: lefts });
-      this.left = num0
+    if (!this.duble && num0 === num1) {
+      this.dubles.push(num0)
     }
 
+    const howMany = this.checkHowMany(num0, num1);
+    console.log(howMany);
+    if (howMany.length === 1) {
+      const sideName = howMany[0];
+      this[sideName].num === num0 || this.setState({ [sideName]: [num1, num0] })  
+    }
+
+  }
+
+  checkHowMany(num0, num1) {
+    const matched = [];
+    this.compareSide('top', num0, num1) || matched.push('top');
+    this.compareSide('right', num0, num1) || matched.push('right');
+    this.compareSide('bottom', num0, num1) || matched.push('bottom');
+    this.compareSide('left', num0, num1) || matched.push('left');
+    return matched;
+  }
+
+  compareSide(sideName, num0, num1) {
+    return this[sideName].num === num0 || this[sideName].num === num1
   }
 
   setRockSize() {

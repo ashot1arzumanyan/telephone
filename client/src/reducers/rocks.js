@@ -34,7 +34,8 @@ const rocks = (state = initialState, action) => {
       return {
         ...state,
         queue: false,
-        nums: filtered
+        nums: filtered,
+        selected: []
       }
 
     case SELECTED:
