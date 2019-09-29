@@ -1,1 +1,1 @@
-# telephon
+# telephone
